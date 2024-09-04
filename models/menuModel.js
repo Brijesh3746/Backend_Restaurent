@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { boolean } = require("webidl-conversions");
 
 const menuItem = new mongoose.Schema({
     name:{
@@ -20,7 +19,7 @@ const menuItem = new mongoose.Schema({
     },
     category:{
         type:String,
-        enum:["Punjabi","Gujrati"],
+        enum:["Punjabi","Gujarati"],
     },
     available:{
         type:Boolean,

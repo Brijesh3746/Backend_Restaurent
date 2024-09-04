@@ -117,3 +117,24 @@ exports.updateMenu = async(req,res) => {
         process.exit(1);
     }
 }
+
+exports.deleteMenu = async(req,res) => {
+    try {
+        const id = req.params.id;
+
+        const deletedUser = await Menu.findByIdAndDelete(id);
+
+        return res.status(200).json({
+            success:true,
+            message:"User Deleted",
+            deletedUser,
+        })
+    } catch (error) {
+        res.json({
+            success:false,
+            message:"Error While Deleting  Menu"
+        });
+        console.error("Error Delete Menu",error);
+        process.exit(1);
+    }
+}
