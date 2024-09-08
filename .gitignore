@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-# Ignore .env files in all directories
-**/.env
-
-# Ignore node_modules directory in all directories
-node_modules/
-=======
 /.env
 /node_module
->>>>>>> master
+

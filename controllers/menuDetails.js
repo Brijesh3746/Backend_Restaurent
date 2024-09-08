@@ -1,4 +1,3 @@
-const { message } = require("statuses");
 const Menu = require("../models/menuModel");
 const User = require("../models/userModel");
 
@@ -16,7 +15,8 @@ exports.createMenu = async(req,res) => {
 
         if(emailCheck.role != "Admin"){
             return res.status(400).json({
-                message:"You are not Admin",
+
+                message:`You are not Admin,You are ${emailCheck.role}`,
             })
         }
         // email=undefined;
@@ -67,12 +67,20 @@ exports.getMenu = async(req,res) => {
     try {
       
 
-        const menuDetails = await Menu.find();;
+        const menuDetails = await Menu.find();
+
+        const simpleItem = menuDetails.map(item => ({
+            id:item._id,
+            description:item.description,
+            price:item.price,
+
+        }))
 
         return res.status(200).json({
             success:true,
             message:"Getting All Menus",
-            menuDetails
+            simpleItem
+            // menuDetails
         })
         
     } catch (error) {
@@ -90,6 +98,14 @@ exports.updateMenu = async(req,res) => {
         const id = req.params.id;
         const {email,description,price,category,available} = req.body;
 
+        const checkEmailWithDb = await Menu.findById(id);
+// 
+        if(checkEmailWithDb.email != email){
+            return res.status(400).json({
+                message:"Your email is not match with You Pass Id",
+            })
+        }
+
         const emailCheck = await User.findOne({email});
 
         if(!emailCheck){
@@ -104,7 +120,7 @@ exports.updateMenu = async(req,res) => {
 
         const updateMenu = await Menu.findByIdAndUpdate(id,{description:description,price:price,category:category,available:available},{new:true});
 
-        return res.status(200),json({
+        return res.status(200).json({
             success:true,
             message:"Menu Updated Successfully",
         })

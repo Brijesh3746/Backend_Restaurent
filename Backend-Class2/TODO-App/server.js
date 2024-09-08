@@ -1,6 +1,0 @@
-// newArr();
-
-// function newArr(){
-    
-    
-// }

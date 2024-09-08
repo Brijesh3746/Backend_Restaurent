@@ -4,13 +4,14 @@ require("dotenv").config();
 
 app.use(express.json());
 
+
 const PORT = process.env.PORT || 5000;
 
 // export route
 const routesUser = require("./routes/userRoutes");
 app.use("/api/v1",routesUser);
 
-// export db
+// export d
 require("./config/database").dbConnect();
 
 app.get('/',(req,res) => {
